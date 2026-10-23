@@ -1,0 +1,42 @@
+@import "tailwindcss";
+@import "@fontsource/instrument-sans/400.css";
+@import "@fontsource/instrument-sans/500.css";
+@import "@fontsource/instrument-sans/600.css";
+@import "@fontsource/instrument-sans/700.css";
+@import "@fontsource/noto-sans-devanagari/400.css";
+@import "@fontsource/noto-sans-devanagari/600.css";
+
+/* "Calibrated" tokens: light and dark */
+:root {
+  --ink: #0F1F33; --paper: #F6F8FB; --surface: #FFFFFF; --line: #DCE3EC; --primary: #0E7C7B; --primary-ink: #FFFFFF; --brass: #B7791F;
+  --ok: #15803D; --warn: #B45309; --expired: #C2410C; --danger: #B91C1C; --muted: #5B6B80; --primary-soft: #E3F3F2;
+}
+:root[data-theme="dark"] {
+  --ink: #E8EEF6; --paper: #0B1522; --surface: #112033; --line: #223650; --primary: #3CC2BF; --primary-ink: #06222A; --brass: #E0A64A;
+  --ok: #4ADE80; --warn: #FBBF24; --expired: #FB923C; --danger: #F87171; --muted: #8FA3BA; --primary-soft: #12353A;
+}
+@theme inline {
+  --color-ink: var(--ink); --color-paper: var(--paper); --color-surface: var(--surface); --color-line: var(--line); --color-primary: var(--primary);
+  --color-primary-ink: var(--primary-ink); --color-primary-soft: var(--primary-soft); --color-brass: var(--brass); --color-ok: var(--ok); --color-warn: var(--warn);
+  --color-expired: var(--expired); --color-danger: var(--danger); --color-muted: var(--muted);
+  --font-sans: "Instrument Sans", "Noto Sans Devanagari", system-ui, sans-serif;
+}
+html { color-scheme: light; } html[data-theme="dark"] { color-scheme: dark; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-sans); font-variant-numeric: tabular-nums; line-height: 1.55; }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 4px; }
+.skip { position: absolute; left: -999px; top: 8px; background: var(--surface); padding: 8px 12px; z-index: 100; border: 2px solid var(--primary); }
+.skip:focus { left: 8px; }
+@media (prefers-reduced-motion: no-preference) {
+  .seal-ring { stroke-dasharray: 190; stroke-dashoffset: 190; animation: seal-draw 700ms ease-out forwards; }
+  .seal-tick { stroke-dasharray: 40; stroke-dashoffset: 40; animation: seal-draw 400ms ease-out 600ms forwards; }
+}
+@media (prefers-reduced-motion: reduce) { .seal-ring, .seal-tick { stroke-dashoffset: 0; } }
+@keyframes seal-draw { to { stroke-dashoffset: 0; } }
+
+@media print {
+  header, footer, nav, .no-print, [role="status"] { display: none !important; }
+  body { background: #fff !important; color: #000 !important; }
+  main { padding: 0 !important; max-width: none !important; }
+  section { break-inside: avoid; border-color: #999 !important; }
+  a { color: inherit !important; text-decoration: none !important; }
+}

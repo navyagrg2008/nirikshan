@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nirikshan wireframes</title>
+<style>
+:root{--ink:#0F1F33;--paper:#F6F8FB;--surface:#fff;--line:#DCE3EC;--primary:#0E7C7B;--ok:#15803D;--warn:#B45309;--danger:#B91C1C;--muted:#5B6B80}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,sans-serif;background:var(--paper);color:var(--ink)}
+header{padding:20px 24px;border-bottom:1px solid var(--line);background:var(--surface)}
+header h1{margin:0;font-size:20px}header p{margin:4px 0 0;color:var(--muted)}
+nav{display:flex;flex-wrap:wrap;gap:8px;padding:12px 24px;background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0}
+nav a{padding:6px 12px;border:1px solid var(--line);border-radius:6px;color:var(--ink);text-decoration:none;font-size:14px}
+nav a:hover{border-color:var(--primary);color:var(--primary)}
+main{max-width:1100px;margin:0 auto;padding:24px}
+section{margin-bottom:40px;scroll-margin-top:70px}
+h2{font-size:18px;margin:0 0 4px}.note{color:var(--muted);margin:0 0 12px;font-size:14px}
+.frame{border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
+.bar{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line);font-size:14px}
+.body{padding:16px}.row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}.col{flex:1;min-width:220px}
+.box{border:1px dashed var(--line);border-radius:6px;padding:12px;background:var(--paper)}
+.btn{display:inline-block;padding:8px 14px;border-radius:6px;background:var(--primary);color:#fff;font-size:14px}
+.btn.o{background:none;color:var(--primary);border:1px solid var(--primary)}
+.in{border:1px solid var(--line);border-radius:6px;padding:8px 10px;background:#fff;color:var(--muted);font-size:14px;margin:4px 0 10px}
+.badge{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;border:1px solid}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.danger{color:var(--danger)}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line)}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}.steps span{padding:4px 10px;border:1px solid var(--line);border-radius:99px;font-size:13px}.steps .on{background:var(--primary);color:#fff;border-color:var(--primary)}
+.phone{max-width:360px}
+</style></head><body>
+<header><h1>Nirikshan: low-fidelity wireframes (Phase 1)</h1><p>Structure and content only. Colours follow the design tokens; final visual design is built in Phase 2 onwards.</p></header>
+<nav>
+<a href="#landing">Landing</a><a href="#validate">Validate</a><a href="#register">Registration</a><a href="#owner">Owner dashboard</a><a href="#apply">Apply</a><a href="#queue">Officer queue</a><a href="#schedule">Schedule</a><a href="#inspector">Inspector test</a><a href="#decision">Decision</a><a href="#rules">Admin rules</a><a href="#audit">Admin audit</a>
+</nav>
+<main>
+
+<section id="landing"><h2>Public: landing (/)</h2><p class="note">One big search, scan QR, three quick actions, how it works, stats.</p>
+<div class="frame"><div class="bar"><b>Nirikshan</b><span>Rules · Notices · Help · EN/HI · Theme · Login</span></div><div class="body">
+<div class="row"><div class="col"><h3>Check a certificate</h3><div class="in">Enter certificate number</div><span class="btn">Verify</span> <span class="btn o">Scan QR</span></div><div class="col box">Gauge illustration (needle idles to "verified")</div></div>
+<div class="row"><div class="col box">Verify a certificate</div><div class="col box">Check an instrument</div><div class="col box">Permissible error limits</div></div>
+<div class="steps"><span>Register</span><span>Apply</span><span>Inspect</span><span>Certificate</span><span>Validate anytime</span></div>
+<div class="row"><div class="col box">Instruments registered / verified / districts</div><div class="col box">Latest 3 notices</div></div>
+</div></div></section>
+
+<section id="validate"><h2>Public: validate (/validate)</h2><p class="note">Signature screen. VALID shows the Verified Seal animation; every state has colour + icon + text. Holder is masked.</p>
+<div class="row"><div class="col frame"><div class="bar"><b class="ok">✔ Valid</b><span>Tabs: Certificate no. | Scan QR | Mobile + serial</span></div><div class="body">
+<div class="box" style="text-align:center">Verified Seal (gauge sweep, ring draw, brass stamp)</div>
+<table><tr><td>Certificate no.</td><td>NRK/CERT/XXX/2026/000123</td></tr><tr><td>Holder</td><td>M/s ****** Store</td></tr><tr><td>Category · capacity · class</td><td>Platform scale · 300 kg · III</td></tr><tr><td>Area</td><td>Ward / zone only</td></tr><tr><td>Verified on · valid till</td><td>date · date (n days left)</td></tr><tr><td>Issuing office</td><td>Division name</td></tr><tr><td>Signature · QR match</td><td class="ok">✔ ✔</td></tr></table>
+<p><span class="btn o">Download public copy</span> <span class="btn o">Report tampering</span> <span class="btn o">Verify another</span></p></div></div>
+<div class="col"><div class="frame"><div class="body"><b class="warn">⚠ Expiring (≤ 30 days)</b> · <b style="color:#C2410C">⌛ Expired</b> · <b class="danger">✖ Revoked</b> · <b class="warn">⏸ Suspended</b> · <b class="muted">? Not found</b><p class="note">Not found also covers malformed numbers and never says which part was wrong. CAPTCHA appears after repeated misses.</p></div></div></div></div></section>
+
+<section id="register"><h2>Public: registration (/register)</h2><p class="note">5 steps, then consent, then "Account pending verification".</p>
+<div class="frame"><div class="body"><div class="steps"><span class="on">1 Identity</span><span>2 Role</span><span>3 Business</span><span>4 Address</span><span>5 Documents</span><span>Consent</span></div>
+<div class="row"><div class="col"><div>Full name</div><div class="in">&nbsp;</div><div>Date of birth (18+)</div><div class="in">&nbsp;</div><div>Mobile</div><div class="in">+91 &nbsp; <span class="btn o" style="padding:2px 8px">Send OTP</span></div><div>OTP</div><div class="in">▢ ▢ ▢ ▢ ▢ ▢</div><div>Email</div><div class="in">&nbsp;</div></div>
+<div class="col box">Draft saved 10:59<br><br>Why we ask: purpose line for each field.<br>Step 4 shows a map picker that auto-fills Circle / Zone / Division.</div></div><span class="btn">Continue</span></div></div></section>
+
+<section id="owner"><h2>Owner: dashboard (/owner/dashboard)</h2>
+<div class="frame"><div class="bar"><b>Nirikshan</b><span>Search (Ctrl+K) · Bell · EN/HI · Profile</span></div><div class="body">
+<div class="row"><div class="col box">Total<br><b>24</b></div><div class="col box">Verified<br><b>18</b></div><div class="col box">Due soon<br><b class="warn">4</b></div><div class="col box">Expired<br><b style="color:#C2410C">2</b></div></div>
+<div class="row"><div class="col box"><b>Needs your attention</b><br>Scale S-1042 expires in 12 days <span class="btn" style="padding:2px 10px">Renew</span><br>Document missing: invoice</div><div class="col box"><b>Open applications</b><div class="steps"><span class="on">Applied</span><span>Document check</span><span>Scheduled</span></div>Next action: upload invoice</div></div>
+<div class="box">Empty state for new users: "Register your first instrument" button</div></div></div></section>
+
+<section id="apply"><h2>Owner: apply (/owner/instruments/:id/apply)</h2><p class="note">No fee anywhere. Dates are computed by the server.</p>
+<div class="row"><div class="col frame"><div class="body"><b>Pre-check</b><br>✔ Instrument registered<br>✔ Documents valid<br>✔ No open application<br>✔ Slots available<br>✔ Rule exists for category and capacity</div></div>
+<div class="col frame"><div class="body"><div>Verification type</div><div class="in">New ▾</div><div>Preferred date / window</div><div class="in">&nbsp;</div><div>Access hours · contact person</div><div class="in">&nbsp;</div><div class="box">Due date: (server) · Apply by: (server)</div><br><div class="in">OTP</div><span class="btn">Submit application</span></div></div></div></section>
+
+<section id="queue"><h2>Officer: queue (/officer/queue)</h2>
+<div class="frame"><div class="bar"><span>Tabs: <b>Cases</b> | Account approvals | Duplicate overrides | Transfers | De-registration | Grievances | Tamper reports</span><span>Area ▾</span></div><div class="body">
+<div class="steps"><span class="on">Applied 12</span><span>Document check 5</span><span>Scheduled 20</span><span>Inspected 3</span><span>Pending decision 4</span></div>
+<table><tr><th>☐</th><th>Application</th><th>Category</th><th>Age</th><th>Status</th><th></th></tr><tr><td>☐</td><td>APP-0001</td><td>Scale</td><td>2 d</td><td><span class="badge">Applied</span></td><td>Check documents</td></tr><tr><td>☐</td><td>APP-0002</td><td>Dispenser</td><td>5 d</td><td><span class="badge warn">SLA risk</span></td><td>Check documents</td></tr></table>
+<p class="note">Document drawer: each document with Accept / Flag + comment, then "Document check complete".</p></div></div></section>
+
+<section id="schedule"><h2>Officer: schedule (/officer/schedule)</h2>
+<div class="row"><div class="col frame"><div class="bar"><span>Day | <b>Week</b> | Area</span><span>Mode: AUTO | REVIEW</span></div><div class="body"><div class="box" style="height:160px">Calendar grid, inspectors as rows. Drag a visit to change date or inspector (reason dialog, audited).</div></div></div>
+<div class="col frame"><div class="body"><b>Proposal for APP-0001</b><table><tr><td>Workload 35%</td><td>0.8</td></tr><tr><td>Distance 25%</td><td>0.6</td></tr><tr><td>Specialisation 15%</td><td>1.0</td></tr><tr><td>Success rate 10%</td><td>0.9</td></tr><tr><td>No-repeat 15%</td><td>1.0</td></tr><tr><td><b>Total</b></td><td><b>0.82</b></td></tr></table><span class="btn">Assign</span> <span class="btn o">Bulk reschedule</span></div></div></div></section>
+
+<section id="inspector"><h2>Inspector: test step (/inspector/visits/:id)</h2><p class="note">Mobile, one column, sticky bottom bar, connection indicator.</p>
+<div class="frame phone"><div class="bar"><b>Visit 3 of 6</b><span class="ok">● Online</span></div><div class="body">
+<div class="steps"><span>Arrive</span><span>Checklist</span><span class="on">Test</span><span>Evidence</span><span>Submit</span></div>
+<table><tr><th>Load</th><th>Reading</th><th>Result</th></tr><tr><td>10 kg</td><td>10.00</td><td class="ok">PASS</td></tr><tr><td>50 kg</td><td>50.10</td><td class="warn">MARGINAL</td></tr><tr><td>100 kg</td><td>100.40</td><td class="danger">FAIL</td></tr></table>
+<p class="note">Error, MPE and verdict come from the server per row. A FAIL recommends rejection and asks for reason codes.</p>
+<span class="btn o">+ Add trial</span><p class="note">Draft saved 10:59</p></div><div class="bar"><span class="btn o">Back</span><span class="btn">Next</span></div></div></section>
+
+<section id="decision"><h2>Officer: decision (/officer/decisions)</h2>
+<div class="frame"><div class="body"><div class="row"><div class="col"><b>Case APP-0001</b><br>Inspection summary, trials vs MPE, photos, geo-tag, sticker serial.<br><br><b>Checks</b><br>✔ Documents complete<br>✔ Inspection data present<br>✔ MPE passed<br>✔ Evidence uploaded</div>
+<div class="col box"><b>Decision</b><br>◉ Approve (validity from rule, shorter if marginal)<br>○ Reject (reason code + remarks)<br>○ Refer to senior officer<br><br><span class="btn">Confirm with re-authentication</span><p class="note">Blocked with explicit reasons if any check fails.</p></div></div></div></div></section>
+
+<section id="rules"><h2>Admin: rules (/admin/rules)</h2>
+<div class="frame"><div class="bar"><span>MPE | Interval | SLA</span><span>Version v3 <span class="badge">Draft</span></span></div><div class="body">
+<table><tr><th>Category</th><th>Capacity band</th><th>Class</th><th>MPE</th><th>Unit</th></tr><tr><td>Platform scale</td><td>100-500 kg</td><td>III</td><td>±0.5</td><td>e</td></tr></table>
+<p>Effective from <span class="in" style="display:inline-block">date</span> &nbsp; <span class="btn o">View diff vs v2</span> <span class="btn o">Send for review</span> <span class="btn">Publish (second admin, re-auth)</span></p>
+<p class="note">Publishing is blocked if the effective dates overlap another published version. Published versions are never edited; corrections create a new version. Cases stay on the version they applied under.</p></div></div></section>
+
+<section id="audit"><h2>Admin: audit (/admin/audit)</h2>
+<div class="frame"><div class="bar"><span>Filters: actor · action · entity · date</span><span class="btn">Verify hash chain</span></div><div class="body">
+<table><tr><th>Time</th><th>Actor</th><th>Action</th><th>Entity</th><th>Hash</th></tr><tr><td>10:59</td><td>Officer</td><td>decision.approve</td><td>APP-0001</td><td>a3f9…</td></tr><tr><td>10:41</td><td>System</td><td>case.scheduled</td><td>APP-0001</td><td>71c2…</td></tr></table>
+<p class="note">Export needs re-authentication. Result of the chain check: "Intact through entry #N" or the first broken entry.</p></div></div></section>
+
+</main></body></html>

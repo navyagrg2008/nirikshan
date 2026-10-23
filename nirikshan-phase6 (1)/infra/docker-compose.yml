@@ -1,0 +1,39 @@
+# Local stack. UNTESTED in this delivery (no Docker in the build sandbox). Run from the repo root:
+#   docker compose -f infra/docker-compose.yml up --build
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    environment: { POSTGRES_USER: nirikshan, POSTGRES_PASSWORD: nirikshan, POSTGRES_DB: nirikshan }
+    volumes: [dbdata:/var/lib/postgresql/data]
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U nirikshan"], interval: 5s, retries: 10 }
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+  minio:
+    image: minio/minio
+    command: server /data --console-address ":9001"
+    environment: { MINIO_ROOT_USER: minio, MINIO_ROOT_PASSWORD: minio12345 }
+    ports: ["9001:9001"]
+  mailpit:
+    image: axllent/mailpit
+    ports: ["8025:8025"]
+  clamav:
+    image: clamav/clamav:1.4
+    profiles: [scan]
+  api:
+    build: { context: .., dockerfile: infra/Dockerfile.api }
+    depends_on: { db: { condition: service_healthy }, redis: { condition: service_started } }
+    environment:
+      DATABASE_URL: postgres://nirikshan:nirikshan@db:5432/nirikshan
+      REDIS_URL: redis://redis:6379
+      ALLOWED_ORIGINS: http://localhost:3000
+      SMTP_HOST: mailpit
+      NODE_ENV: development   # keep development here: production refuses the dev key and the console OTP provider
+      STORAGE_LOCAL_DIR: /data/uploads
+    volumes: [uploads:/data/uploads]
+  web:
+    build: { context: .., dockerfile: infra/Dockerfile.web }
+    depends_on: [api]
+    environment: { API_INTERNAL_URL: "http://api:4000" }
+    ports: ["3000:3000"]
+volumes: { dbdata: {}, uploads: {} }

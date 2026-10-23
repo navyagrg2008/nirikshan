@@ -1,0 +1,2 @@
+# ADR 0003: Plain SQL with a transaction wrapper, no Prisma
+Authorization lives in PostgreSQL Row-Level Security, driven by `SET LOCAL` session settings inside each request transaction (`DbService.tx`). ORMs hide transaction and role handling, which makes RLS easy to bypass by accident. We use parameterised SQL through `pg`, small typed row mappers, and numbered SQL migrations. Every query runs as the low-privilege role `nirikshan_app` unless it goes through `db.system()` for a named, audited reason.

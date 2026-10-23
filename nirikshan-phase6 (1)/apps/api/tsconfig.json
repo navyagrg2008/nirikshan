@@ -1,0 +1,5 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": { "declaration": false, "outDir": "dist", "rootDir": ".", "experimentalDecorators": true, "emitDecoratorMetadata": true, "types": ["node", "jest", "multer"] },
+  "include": ["src", "test"]
+}

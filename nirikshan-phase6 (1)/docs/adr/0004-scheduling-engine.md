@@ -1,0 +1,9 @@
+# ADR 0004: Scheduling engine: filter, score, then auto-assign or ask an officer
+The engine (`apps/api/src/modules/scheduling/scheduling.service.ts`, pure scoring in `packages/shared/src/scheduling.ts`) runs when a case reaches DOCUMENT_CHECKED or FAILED_ATTEMPT.
+
+1. **Filter.** Active inspector, certified for the instrument category (not expired), scope covers the case area or an ancestor, not on leave/unavailable that day, under the daily limit (a CAPACITY_OVERRIDE can lower it), no overlapping visit, not a holiday or non-working day. Days are tried in order, the owner's preferred days first.
+2. **Score** (0 to 100, weights editable in `scheduling_settings`, default 35/25/15/10/15): workload, distance (area proximity when coordinates are missing), skill fit, completion record, "fresh inspector" (did not inspect this instrument last time). The full breakdown is stored on the visit and shown to officers, never to owners.
+3. **Decide.** Best score on the earliest workable day. AUTO if score >= `auto_threshold` (50) and the day is inside the scheduling SLA. Otherwise REVIEW: a proposal with reasons (`LOW_SCORE`, `OUTSIDE_SLA`, `NO_CANDIDATE`) goes to officers. `OWNER_PREFERENCE_UNMET` is information only.
+4. **Safety.** The database refuses overlapping live visits per inspector (`EXCLUDE USING gist`). If two requests pick the same slot, the loser rolls back to a savepoint, avoids that slot and plans again (max 4 times). The SLA clock starts at the later of "ready" and the first allowed booking day, so a holiday or an owner's own date does not count as a breach.
+
+Why not an optimiser? Officers must be able to read why a choice was made. A transparent weighted score with hard filters is explainable, testable, and tunable without code. A global optimiser can replace `plan()` later without touching the callers.

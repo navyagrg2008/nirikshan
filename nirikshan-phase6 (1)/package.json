@@ -1,0 +1,33 @@
+{
+  "name": "nirikshan",
+  "private": true,
+  "version": "0.2.0",
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "dev:api": "pnpm --filter @nirikshan/api dev",
+    "dev:web": "pnpm --filter @nirikshan/web dev",
+    "migrate": "pnpm --filter @nirikshan/api migrate",
+    "seed": "pnpm --filter @nirikshan/api seed"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "argon2",
+      "@swc/core",
+      "esbuild",
+      "sharp",
+      "unrs-resolver"
+    ],
+    "overrides": {
+      "postcss": "^8.5.23",
+      "uuid": "^11.1.1",
+      "js-yaml": "^5.4.1"
+    }
+  }
+}

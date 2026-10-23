@@ -1,0 +1,3 @@
+# ADR 0002: Key hierarchy and field encryption
+Root keys (`ROOT_KEYS`, from a secrets manager or KMS in production) never touch the database. HKDF derives purpose keys (field KEK, blind index, OTP, signing). Each encrypted value gets its own random data key, wrapped by the KEK (AES-256-GCM, record context as AAD). Searchable fields (mobile, email) use HMAC blind indexes; `blindIndexAll` lets lookups succeed during rotation. A dev key exists for local runs and is refused in production. Rotation re-wraps data keys; it does not re-encrypt payloads.
+Not done: the KMS adapter (root key from AWS KMS) and a rotation job. Both are Phase 5.
