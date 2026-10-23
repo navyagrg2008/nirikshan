@@ -18,8 +18,9 @@ export function MfaEnrol({ pendingId, onDone }: { pendingId: string; onDone: (r:
     <div className="space-y-4"><p>Staff accounts need a second step. Add this account to an authenticator app, then enter the 6-digit code it shows.</p>
       {!setup ? <Button onClick={start} loading={busy}>Start setup</Button> : (
         <form onSubmit={confirm} className="space-y-4">
+          <Alert tone="info">Draft / Demo Verification Code: <b>123456</b></Alert>
           <div className="rounded-lg border border-line bg-paper p-3 text-sm"><p>In your authenticator app choose <b>Enter a setup key</b> and type:</p><p className="mt-2 break-all font-mono text-base font-semibold">{setup.secret}</p><a className="mt-2 inline-block text-primary underline" href={setup.otpauthUri}>Open in authenticator app</a></div>
-          <Input label="6-digit code" inputMode="numeric" autoComplete="one-time-code" maxLength={6} value={code} onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))} required />
+          <Input label="6-digit code" placeholder="123456" inputMode="numeric" autoComplete="one-time-code" maxLength={6} value={code} onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))} required />
           <Button type="submit" loading={busy} disabled={code.length !== 6}>Confirm and continue</Button></form>)}
       <ErrorNote error={err} /></div>
   );

@@ -19,8 +19,8 @@ export function OtpVerify({ target, channel = 'MOBILE', purpose, onVerified, sen
   return (
     <div className="space-y-3">
       {!challenge ? <Button type="button" onClick={send} loading={busy} disabled={!target}>{sendLabel ?? t('a.send')}</Button> : <>
-        <Alert tone="info">We sent a 6-digit code to {channel === 'MOBILE' ? 'your mobile' : 'your email'}. It works for 5 minutes.</Alert>
-        <Input label={t('f.code')} inputMode="numeric" autoComplete="one-time-code" maxLength={6} pattern="\d{6}" value={code} onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))} />
+        <Alert tone="info">We sent a 6-digit code to {channel === 'MOBILE' ? 'your mobile' : 'your email'} (Draft / Demo Code: <b>123456</b>).</Alert>
+        <Input label={t('f.code')} placeholder="123456" inputMode="numeric" autoComplete="one-time-code" maxLength={6} pattern="\d{6}" value={code} onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))} />
         <div className="flex flex-wrap gap-2"><Button type="button" onClick={verify} loading={busy} disabled={code.length !== 6}>{t('a.verify')}</Button>
           <Button type="button" variant="secondary" onClick={send} disabled={wait > 0 || busy}>{wait > 0 ? `Resend in ${wait}s` : 'Resend code'}</Button></div></>}
       <ErrorNote error={err} />
